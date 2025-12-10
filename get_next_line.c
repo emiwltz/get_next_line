@@ -6,11 +6,15 @@
 /*   By: ewaltz <ewaltz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 14:15:18 by ewaltz            #+#    #+#             */
-/*   Updated: 2025/12/08 17:23:28 by ewaltz           ###   ########.fr       */
+/*   Updated: 2025/12/10 11:58:18 by ewaltz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stdlib.h>
+#include <unistd.h>
+
+int	ft_strlen(char *str);
 
 int	get_index(char *str)
 {
@@ -96,7 +100,10 @@ char	*str_join(char *rest, char *buffer)
   if (rest)
   {
 	while (rest[i])
-	  new_rest[i++] = rest[i];
+	{
+	  new_rest[i] = rest[i];
+	  i++;
+	}
   }
   while (buffer[y])
 	new_rest[i++] = buffer[y++];
@@ -113,7 +120,6 @@ char	*get_next_line(int fd)
   char			*ligne;
   int			bytes;
   int 			index;
-  int 			i;
 
   if (fd < 0 || BUFFER_SIZE <= 0)
 	return (NULL);
@@ -126,11 +132,48 @@ char	*get_next_line(int fd)
 	  return (NULL);
 	}
 	if (bytes == 0)
-	  return;
+	  break;
 	if (bytes > 0)
 	{
 	  buffer[bytes] = '\0';
 	  rest = str_join(rest, buffer);
 	}
   }
+  index = get_index(rest) + 1;
+  ligne = ft_strdup(rest, index);
+  rest = get_rest(rest, index);
+  return (ligne);
 }
+//
+// #include <fcntl.h>
+// #include <stdio.h>
+// #include <stdlib.h>
+// #include "get_next_line.h"
+//
+// int main(int argc, char **argv)
+// {
+//     int   fd;
+//     char *line;
+//
+//     if (argc != 2)
+//     {
+//         printf("Usage: %s <fichier>\n", argv[0]);
+//         return (1);
+//     }
+//
+//     fd = open(argv[1], O_RDONLY);
+//     if (fd < 0)
+//     {
+//         perror("open");
+//         return (1);
+//     }
+//
+//     while ((line = get_next_line(fd)) != NULL)
+//     {
+//         printf("LIGNE => \"%s\"\n", line);
+//         free(line);
+//     }
+//
+//     close(fd);
+//     return (0);
+// }
