@@ -38,6 +38,10 @@ char	*get_next_line(int fd)
 			rest = str_join(rest, buffer);
 		}
 	}
+	if (get_index(rest) == -1)
+	{
+		return (rest);
+	}
 	index = get_index(rest) + 1;
 	ligne = ft_strdup(rest, index);
 	rest = get_rest(rest, index);
