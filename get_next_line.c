@@ -15,19 +15,28 @@
 char	*get_next_line(int fd)
 {
 	static char		*rest;
-	char			buffer[BUFFER_SIZE + 1];
+	char			*buffer;
 	char			*ligne;
 	int				bytes;
 	int				index;
 
+
 	if (fd < 0 || fd > 1024 || BUFFER_SIZE <= 0)
 		return (NULL);
+	buffer = malloc(BUFFER_SIZE + 1);
+	if (!buffer)
+	{
+	  free (buffer);
+	  return (NULL);
+    }
 	while (get_index(rest) == -1)
 	{
 		bytes = read(fd, buffer, BUFFER_SIZE);
 		if (bytes < 0)
 		{
 			free (rest);
+			rest = NULL;
+			free (buffer);
 			return (NULL);
 		}
 		if (bytes == 0)
@@ -50,5 +59,6 @@ char	*get_next_line(int fd)
 	  ligne = ft_strdup(rest, index);
 	  rest = get_rest(rest, index);
 	}
+	free (buffer);
 	return (ligne);
 }
