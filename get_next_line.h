@@ -6,10 +6,9 @@
 /*   By: ewaltz <ewaltz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 14:15:08 by ewaltz            #+#    #+#             */
-/*   Updated: 2025/12/11 10:58:02 by ewaltz           ###   ########.fr       */
+/*   Updated: 2025/12/12 10:59:47 by ewaltz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
